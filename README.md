@@ -8,6 +8,10 @@ FormSheetTextView is a FormSheet style UITextView.
 
 <img src="https://user-images.githubusercontent.com/43707/29513260-b4fed45e-869f-11e7-9b0d-ca91b5de37be.png" width="400px">
 
+#### iPhone Plus
+<img src="https://user-images.githubusercontent.com/43707/29513384-24240fe8-86a0-11e7-991e-41b0490ac1ab.png" width="400px">
+
+
 #### iPad
 <img src="https://user-images.githubusercontent.com/43707/29513124-53bb23d2-869f-11e7-86e2-5d0b65264665.png" width="400px">
 
