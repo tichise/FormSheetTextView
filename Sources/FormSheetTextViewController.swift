@@ -125,27 +125,29 @@ public class FormSheetTextViewController: UIViewController {
     func keyboardWillChangeFrame(notification: NSNotification) {
         let info: [AnyHashable: Any]? = notification.userInfo
         
-        
         let windowHeight = UIScreen.main.bounds.size.height
-        
-        // Form Sheet(UIModalPresentationFormSheet) 高さは常に620
-        let formSheetHeight = self.view.frame.size.height
-        
         
         // キーボードの大きさを取得
         let keyboardRect = (info?[UIKeyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
         let keyboardHeight = keyboardRect.size.height
         
+        // Form Sheet(UIModalPresentationFormSheet) 高さ
+        let formSheetHeight:CGFloat! = self.view.superview?.frame.size.height
         
-        if UIDevice.current.orientation.isLandscape {
-            let statusBarHeight = UIApplication.shared.statusBarFrame.size.height
-            
-            
-            // キーボードの高さ - form sheetの下の余白の高さ
-            bottomConstraint.constant = keyboardHeight - ((windowHeight - formSheetHeight - statusBarHeight)) + 10
+        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.pad) {
+            // iPadの場合
+            if UIDevice.current.orientation.isLandscape {
+                let statusBarHeight = UIApplication.shared.statusBarFrame.size.height
+                
+                // キーボードの高さ - form sheetの下の余白の高さ
+                bottomConstraint.constant = keyboardHeight - ((windowHeight - formSheetHeight - statusBarHeight)) + 10
+            } else {
+                bottomConstraint.constant = keyboardHeight - ((windowHeight - formSheetHeight) / 2) + 10
+            }
         } else {
-            bottomConstraint.constant = keyboardHeight - ((windowHeight - formSheetHeight) / 2) + 10
+            bottomConstraint.constant = keyboardHeight + 10
         }
+        
         
         let duration = CDouble(info?[UIKeyboardAnimationDurationUserInfoKey] as? TimeInterval ?? TimeInterval())
         UIView.animate(withDuration: duration, animations: {() -> Void in
