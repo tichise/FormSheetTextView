@@ -29,6 +29,7 @@ class ViewController: UIViewController {
         formSheetTextViewController.setInitialText((self.baseTextView?.text)!)
         formSheetTextViewController.setTitleText("Title")
         formSheetTextViewController.setCancelButtonText("Cancel")
+        formSheetTextViewController.setIsInitialPositionHead(false)
         
         // formSheetTextViewController.setTitleSize(20) // default 15
         // formSheetTextViewController.setButtonSize(20) // default 15

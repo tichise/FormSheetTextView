@@ -8,8 +8,8 @@ public class FormSheetTextViewController: UIViewController {
     private let seguePushPreview = "SeguePushPreview"
     
     private var isPreview:Bool = false
+    private var isInitialPositionHead:Bool = false
     
-
     private var initialText:String?
     private var previewPageTitle:String = "Preview"
     private var cancelButonText:String = "Cancel"
@@ -62,8 +62,10 @@ public class FormSheetTextViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillChangeFrame), name: NSNotification.Name.UIKeyboardWillChangeFrame, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
         
-        // Cursor initial position of explanatory area set as head
-        composeTextView?.selectedTextRange = composeTextView?.textRange(from: (composeTextView?.beginningOfDocument)!, to: (composeTextView?.beginningOfDocument)!)
+        if (isInitialPositionHead) {
+            // Cursor initial position of explanatory area set as head
+            composeTextView?.selectedTextRange = composeTextView?.textRange(from: (composeTextView?.beginningOfDocument)!, to: (composeTextView?.beginningOfDocument)!)
+        }
         
         composeTextView?.becomeFirstResponder()
     }
@@ -174,6 +176,7 @@ public class FormSheetTextViewController: UIViewController {
         
         self.navigationItem.leftBarButtonItem = leftButton
     }
+
     
     func setUpSendButton() {
         let rightButton = UIBarButtonItem(title: sendButtonText, style: UIBarButtonItemStyle.plain, target: self, action: #selector(FormSheetTextViewController.send(sender:)))
@@ -222,5 +225,9 @@ public class FormSheetTextViewController: UIViewController {
     
     public func setIsPreview (_ isPreview:Bool) {
         self.isPreview = isPreview
+    }
+    
+    public func setIsInitialPositionHead(_ isInitialPositionHead:Bool) {
+        self.isInitialPositionHead = isInitialPositionHead
     }
 }
