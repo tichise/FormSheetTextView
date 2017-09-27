@@ -47,7 +47,7 @@ open class FormSheetTextViewController: UIViewController {
         
         if (titleSize != nil) {
             self.navigationController?.navigationBar.titleTextAttributes
-                = [NSFontAttributeName: UIFont.systemFont(ofSize: titleSize!)]
+                = [NSAttributedStringKey.font: UIFont.systemFont(ofSize: titleSize!)]
         }
     
         
@@ -120,11 +120,11 @@ open class FormSheetTextViewController: UIViewController {
         return bundle
     }
     
-    func UIKeyboardWillShow(notification: NSNotification) {
+    @objc func UIKeyboardWillShow(notification: NSNotification) {
         keyboardWillChangeFrame(notification: notification)
     }
     
-    func keyboardWillChangeFrame(notification: NSNotification) {
+    @objc func keyboardWillChangeFrame(notification: NSNotification) {
         let info: [AnyHashable: Any]? = notification.userInfo
         
         let windowHeight = UIScreen.main.bounds.size.height
@@ -157,7 +157,7 @@ open class FormSheetTextViewController: UIViewController {
         })
     }
     
-    func keyboardWillHide(_ notification: Notification) {
+    @objc func keyboardWillHide(_ notification: Notification) {
         let info: [AnyHashable: Any]? = notification.userInfo
         bottomConstraint.constant = 10
         
@@ -171,7 +171,7 @@ open class FormSheetTextViewController: UIViewController {
         let leftButton = UIBarButtonItem(title: cancelButonText, style: UIBarButtonItemStyle.plain, target: self, action:#selector(FormSheetTextViewController.cancel(sender:)))
         
         if (buttonSize != nil) {
-            leftButton.setTitleTextAttributes([NSFontAttributeName: UIFont.systemFont(ofSize: buttonSize!)], for: UIControlState.normal)
+            leftButton.setTitleTextAttributes([NSAttributedStringKey.font: UIFont.systemFont(ofSize: buttonSize!)], for: UIControlState.normal)
         }
         
         self.navigationItem.leftBarButtonItem = leftButton
@@ -182,13 +182,13 @@ open class FormSheetTextViewController: UIViewController {
         let rightButton = UIBarButtonItem(title: sendButtonText, style: UIBarButtonItemStyle.plain, target: self, action: #selector(FormSheetTextViewController.send(sender:)))
         
         if (buttonSize != nil) {
-            rightButton.setTitleTextAttributes([NSFontAttributeName: UIFont.systemFont(ofSize: buttonSize!)], for: UIControlState.normal)
+            rightButton.setTitleTextAttributes([NSAttributedStringKey.font: UIFont.systemFont(ofSize: buttonSize!)], for: UIControlState.normal)
         }
         
         self.navigationItem.rightBarButtonItem = rightButton
     }
     
-    func preview() {
+    @objc func preview() {
         performSegue(withIdentifier: seguePushPreview, sender: nil)
     }
     
@@ -208,8 +208,8 @@ open class FormSheetTextViewController: UIViewController {
         let paragrahStyle = NSMutableParagraphStyle()
         paragrahStyle.lineSpacing = 10.0
         let attributedText = NSMutableAttributedString(string: defaultString)
-        attributedText.addAttribute(NSParagraphStyleAttributeName, value: paragrahStyle, range: NSRange(location: 0, length: attributedText.length))
-        attributedText.addAttribute(NSFontAttributeName, value: bodyFont, range: NSRange(location: 0, length: attributedText.length))
+        attributedText.addAttribute(NSAttributedStringKey.paragraphStyle, value: paragrahStyle, range: NSRange(location: 0, length: attributedText.length))
+        attributedText.addAttribute(NSAttributedStringKey.font, value: bodyFont, range: NSRange(location: 0, length: attributedText.length))
         composeTextView?.attributedText = attributedText
         
         let toolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: 45))
