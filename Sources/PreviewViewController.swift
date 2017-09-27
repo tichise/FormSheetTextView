@@ -3,14 +3,14 @@
 //
 import UIKit
 
-public class PreviewViewController: UIViewController {
+open class PreviewViewController: UIViewController {
 
     @IBOutlet weak var webView:UIWebView?
 
-    private var html:String?
-    public var previewPageTitle:String?
+    fileprivate var html:String?
+    open var previewPageTitle:String?
     
-    override public func viewDidLoad() {
+    override open func viewDidLoad() {
         super.viewDidLoad()
         
         self.title = previewPageTitle
@@ -22,7 +22,7 @@ public class PreviewViewController: UIViewController {
         webView?.loadHTMLString(htmlString, baseURL: nil)
     }
 
-    public func setHtml(html:String) {
+    open func setHtml(_ html:String) {
         self.html = html
     }
 }
