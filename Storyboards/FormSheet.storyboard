@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina4_0" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -13,10 +14,6 @@
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController storyboardIdentifier="FormSheetTextViewController" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="BYZ-38-t0r" customClass="FormSheetTextViewController" customModule="FormSheetTextView" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
-                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
-                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -34,11 +31,12 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="S28-ym-so4" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="10" id="1t9-2r-ART"/>
-                            <constraint firstItem="S28-ym-so4" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="10" id="FaM-0m-Jjv"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="S28-ym-so4" secondAttribute="bottom" constant="10" id="l3A-pd-nI9"/>
-                            <constraint firstAttribute="trailing" secondItem="S28-ym-so4" secondAttribute="trailing" constant="10" id="vSa-9V-mYQ"/>
+                            <constraint firstItem="S28-ym-so4" firstAttribute="leading" secondItem="ptP-Xj-gRd" secondAttribute="leading" constant="10" id="1t9-2r-ART"/>
+                            <constraint firstItem="S28-ym-so4" firstAttribute="top" secondItem="ptP-Xj-gRd" secondAttribute="top" constant="10" id="FaM-0m-Jjv"/>
+                            <constraint firstItem="ptP-Xj-gRd" firstAttribute="bottom" secondItem="S28-ym-so4" secondAttribute="bottom" constant="10" id="l3A-pd-nI9"/>
+                            <constraint firstItem="ptP-Xj-gRd" firstAttribute="trailing" secondItem="S28-ym-so4" secondAttribute="trailing" constant="10" id="vSa-9V-mYQ"/>
                         </constraints>
+                        <viewLayoutGuide key="safeArea" id="ptP-Xj-gRd"/>
                     </view>
                     <navigationItem key="navigationItem" id="gQA-Ty-Elu"/>
                     <connections>
@@ -55,16 +53,12 @@
         <scene sceneID="dev-pu-iHR">
             <objects>
                 <viewController storyboardIdentifier="PreviewController" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="A39-J9-OzW" customClass="PreviewViewController" customModule="FormSheetTextView" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="QiP-Fk-igc"/>
-                        <viewControllerLayoutGuide type="bottom" id="f7g-td-rQT"/>
-                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" restorationIdentifier="PreviewController" id="fpO-fJ-GHy">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hne-hs-Iat">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <rect key="frame" x="0.0" y="20" width="320" height="548"/>
                                 <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <connections>
                                     <outlet property="delegate" destination="A39-J9-OzW" id="hrV-km-py1"/>
@@ -73,15 +67,12 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="f7g-td-rQT" firstAttribute="top" secondItem="hne-hs-Iat" secondAttribute="bottom" id="0ZD-rG-Eu9"/>
-                            <constraint firstItem="f7g-td-rQT" firstAttribute="top" secondItem="hne-hs-Iat" secondAttribute="bottom" id="Ayq-na-DuS"/>
-                            <constraint firstItem="hne-hs-Iat" firstAttribute="top" secondItem="fpO-fJ-GHy" secondAttribute="top" id="J5I-IE-Wed"/>
-                            <constraint firstItem="hne-hs-Iat" firstAttribute="leading" secondItem="fpO-fJ-GHy" secondAttribute="leading" id="NbS-13-wGa"/>
-                            <constraint firstItem="hne-hs-Iat" firstAttribute="top" secondItem="fpO-fJ-GHy" secondAttribute="top" id="T2f-bI-3Cd"/>
-                            <constraint firstItem="hne-hs-Iat" firstAttribute="leading" secondItem="fpO-fJ-GHy" secondAttribute="leading" id="XAO-Ld-Hgx"/>
-                            <constraint firstAttribute="trailing" secondItem="hne-hs-Iat" secondAttribute="trailing" id="YYT-MJ-vKi"/>
-                            <constraint firstAttribute="trailing" secondItem="hne-hs-Iat" secondAttribute="trailing" id="b4i-WQ-uvA"/>
+                            <constraint firstItem="nKF-OX-bc4" firstAttribute="bottom" secondItem="hne-hs-Iat" secondAttribute="bottom" id="0ZD-rG-Eu9"/>
+                            <constraint firstItem="hne-hs-Iat" firstAttribute="top" secondItem="nKF-OX-bc4" secondAttribute="top" id="J5I-IE-Wed"/>
+                            <constraint firstItem="hne-hs-Iat" firstAttribute="leading" secondItem="nKF-OX-bc4" secondAttribute="leading" id="NbS-13-wGa"/>
+                            <constraint firstItem="nKF-OX-bc4" firstAttribute="trailing" secondItem="hne-hs-Iat" secondAttribute="trailing" id="YYT-MJ-vKi"/>
                         </constraints>
+                        <viewLayoutGuide key="safeArea" id="nKF-OX-bc4"/>
                     </view>
                     <navigationItem key="navigationItem" title="プレビュー" id="3VS-Oa-6ju">
                         <barButtonItem key="backBarButtonItem" title="戻る" id="gzE-YF-3f9"/>
@@ -96,9 +87,4 @@
             <point key="canvasLocation" x="576" y="-977"/>
         </scene>
     </scenes>
-    <simulatedMetricsContainer key="defaultSimulatedMetrics">
-        <simulatedStatusBarMetrics key="statusBar"/>
-        <simulatedOrientationMetrics key="orientation"/>
-        <simulatedScreenMetrics key="destination" type="retina4_0.fullscreen"/>
-    </simulatedMetricsContainer>
 </document>
