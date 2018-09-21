@@ -29,7 +29,7 @@ open class FormSheetTextViewController: UIViewController {
     @objc open var completionHandler: ((_ sendText: String) -> Void)?
     
     
-    @objc open static func instantiate() -> FormSheetTextViewController {
+    @objc public static func instantiate() -> FormSheetTextViewController {
         let storyboardsBundle = getStoryboardsBundle()
         let formSheetTextViewController = UIStoryboard(name: "FormSheet", bundle: storyboardsBundle).instantiateInitialViewController() as! FormSheetTextViewController
 
@@ -47,7 +47,7 @@ open class FormSheetTextViewController: UIViewController {
         
         if (titleSize != nil) {
             self.navigationController?.navigationBar.titleTextAttributes
-                = [NSAttributedStringKey.font: UIFont.systemFont(ofSize: titleSize!)]
+                = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: titleSize!)]
         }
     
         
@@ -58,9 +58,9 @@ open class FormSheetTextViewController: UIViewController {
         super.viewDidAppear(animated)
     
         // Start keyboard display / hidden notification
-        NotificationCenter.default.addObserver(self, selector: #selector(self.UIKeyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillChangeFrame), name: NSNotification.Name.UIKeyboardWillChangeFrame, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.UIKeyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillChangeFrame), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
         
         if (isInitialPositionHead) {
             // Cursor initial position of explanatory area set as head
@@ -99,9 +99,9 @@ open class FormSheetTextViewController: UIViewController {
     }
     
     @objc private func cancel(sender:UIBarButtonItem) {
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillChangeFrame, object: nil)
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
 
         self.dismiss(animated: true, completion:nil)
     }
@@ -130,7 +130,7 @@ open class FormSheetTextViewController: UIViewController {
         let windowHeight = UIScreen.main.bounds.size.height
         
         // キーボードの大きさを取得
-        let keyboardRect = (info?[UIKeyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
+        let keyboardRect = (info?[UIResponder.keyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
         let keyboardHeight = keyboardRect.size.height
         
         // Form Sheet(UIModalPresentationFormSheet) 高さ
@@ -151,7 +151,7 @@ open class FormSheetTextViewController: UIViewController {
         }
         
         
-        let duration = CDouble(info?[UIKeyboardAnimationDurationUserInfoKey] as? TimeInterval ?? TimeInterval())
+        let duration = CDouble(info?[UIResponder.keyboardAnimationDurationUserInfoKey] as? TimeInterval ?? TimeInterval())
         UIView.animate(withDuration: duration, animations: {() -> Void in
             self.view.layoutIfNeeded()
         })
@@ -161,17 +161,17 @@ open class FormSheetTextViewController: UIViewController {
         let info: [AnyHashable: Any]? = notification.userInfo
         bottomConstraint.constant = 10
         
-        let duration = CDouble(info?[UIKeyboardAnimationDurationUserInfoKey] as? TimeInterval ?? TimeInterval())
+        let duration = CDouble(info?[UIResponder.keyboardAnimationDurationUserInfoKey] as? TimeInterval ?? TimeInterval())
         UIView.animate(withDuration: duration, animations: {() -> Void in
             self.view.layoutIfNeeded()
         })
     }
     
     func setUpCancelButton() {
-        let leftButton = UIBarButtonItem(title: cancelButonText, style: UIBarButtonItemStyle.plain, target: self, action:#selector(FormSheetTextViewController.cancel(sender:)))
+        let leftButton = UIBarButtonItem(title: cancelButonText, style: UIBarButtonItem.Style.plain, target: self, action:#selector(FormSheetTextViewController.cancel(sender:)))
         
         if (buttonSize != nil) {
-            leftButton.setTitleTextAttributes([NSAttributedStringKey.font: UIFont.systemFont(ofSize: buttonSize!)], for: UIControlState.normal)
+            leftButton.setTitleTextAttributes([NSAttributedString.Key.font: UIFont.systemFont(ofSize: buttonSize!)], for: UIControl.State.normal)
         }
         
         self.navigationItem.leftBarButtonItem = leftButton
@@ -179,10 +179,10 @@ open class FormSheetTextViewController: UIViewController {
 
     
     func setUpSendButton() {
-        let rightButton = UIBarButtonItem(title: sendButtonText, style: UIBarButtonItemStyle.plain, target: self, action: #selector(FormSheetTextViewController.send(sender:)))
+        let rightButton = UIBarButtonItem(title: sendButtonText, style: UIBarButtonItem.Style.plain, target: self, action: #selector(FormSheetTextViewController.send(sender:)))
         
         if (buttonSize != nil) {
-            rightButton.setTitleTextAttributes([NSAttributedStringKey.font: UIFont.systemFont(ofSize: buttonSize!)], for: UIControlState.normal)
+            rightButton.setTitleTextAttributes([NSAttributedString.Key.font: UIFont.systemFont(ofSize: buttonSize!)], for: UIControl.State.normal)
         }
         
         self.navigationItem.rightBarButtonItem = rightButton
@@ -201,15 +201,15 @@ open class FormSheetTextViewController: UIViewController {
     }
     
     func setUpComposeTextView(_ defaultString: String) {
-        let bodyFontDescriptor = UIFontDescriptor.preferredFontDescriptor(withTextStyle: UIFontTextStyle.body)
+        let bodyFontDescriptor = UIFontDescriptor.preferredFontDescriptor(withTextStyle: UIFont.TextStyle.body)
         
         let bodyFont = UIFont(descriptor: bodyFontDescriptor, size: 0.0)
         
         let paragrahStyle = NSMutableParagraphStyle()
         paragrahStyle.lineSpacing = 10.0
         let attributedText = NSMutableAttributedString(string: defaultString)
-        attributedText.addAttribute(NSAttributedStringKey.paragraphStyle, value: paragrahStyle, range: NSRange(location: 0, length: attributedText.length))
-        attributedText.addAttribute(NSAttributedStringKey.font, value: bodyFont, range: NSRange(location: 0, length: attributedText.length))
+        attributedText.addAttribute(NSAttributedString.Key.paragraphStyle, value: paragrahStyle, range: NSRange(location: 0, length: attributedText.length))
+        attributedText.addAttribute(NSAttributedString.Key.font, value: bodyFont, range: NSRange(location: 0, length: attributedText.length))
         composeTextView?.attributedText = attributedText
         
         let toolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: 45))

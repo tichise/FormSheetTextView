@@ -39,18 +39,18 @@ class ViewController: UIViewController {
         formSheetTextViewController.setSendButtonText("Send")
         formSheetTextViewController.completionHandler = { sendText in
             
-            if (sendText.characters.count > 20) {
-                let alertController:UIAlertController = UIAlertController(title:nil, message: "The number of characters exceeds the upper limit. Please enter within 20 characters.", preferredStyle: UIAlertControllerStyle.alert)
-                let cancelAction:UIAlertAction = UIAlertAction(title: "Close", style: UIAlertActionStyle.cancel, handler:{ (action:UIAlertAction!) -> Void in
+            if sendText.count > 20 {
+                let alertController:UIAlertController = UIAlertController(title:nil, message: "The number of characters exceeds the upper limit. Please enter within 20 characters.", preferredStyle: UIAlertController.Style.alert)
+                let cancelAction:UIAlertAction = UIAlertAction(title: "Close", style: UIAlertAction.Style.cancel, handler:{ (action:UIAlertAction!) -> Void in
                 })
                 alertController.addAction(cancelAction)
                 formSheetTextViewController.present(alertController, animated: true, completion: nil)
                 return
             }
             
-            if (sendText.characters.count == 0) {
-                let alertController:UIAlertController = UIAlertController(title:nil, message: "It is not input. Please enter.", preferredStyle: UIAlertControllerStyle.alert)
-                let cancelAction:UIAlertAction = UIAlertAction(title: "Close", style: UIAlertActionStyle.cancel, handler:{ (action:UIAlertAction!) -> Void in
+            if sendText.count == 0 {
+                let alertController:UIAlertController = UIAlertController(title:nil, message: "It is not input. Please enter.", preferredStyle: UIAlertController.Style.alert)
+                let cancelAction:UIAlertAction = UIAlertAction(title: "Close", style: UIAlertAction.Style.cancel, handler:{ (action:UIAlertAction!) -> Void in
                 })
                 alertController.addAction(cancelAction)
                 formSheetTextViewController.present(alertController, animated: true, completion: nil)
