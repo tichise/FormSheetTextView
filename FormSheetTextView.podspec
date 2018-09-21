@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name = 'FormSheetTextView'
-  s.version = '1.2.0'
+  s.version = '1.3.0'
   s.license = 'MIT'
   s.summary = 'FormSheetTextView is a FormSheet style UITextView.'
   s.homepage = 'https://github.com/tichise/FormSheetTextView'
@@ -14,7 +14,7 @@ Pod::Spec.new do |s|
   s.requires_arc = true
 
   s.resource_bundles = {
-    'Storyboards' => [
+    'FormSheetTextViewStoryboards' => [
         'Storyboards/*.storyboard'
     ]
   }
