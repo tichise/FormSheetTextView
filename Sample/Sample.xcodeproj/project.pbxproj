@@ -25,8 +25,6 @@
 		798269041F1F269B0090613B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		798269071F1F269B0090613B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		798269091F1F269B0090613B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		798269141F1F269B0090613B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		7982691F1F1F269C0090613B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A030DF94DD58B1A44B61A0D7 /* Pods-SampleTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SampleTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SampleTests/Pods-SampleTests.debug.xcconfig"; sourceTree = "<group>"; };
 		CA0E4A79C01CBA0159B93F40 /* Pods-Sample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sample.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Sample/Pods-Sample.debug.xcconfig"; sourceTree = "<group>"; };
 		CEDF132C1A0E0C3BF00BDEAC /* Pods_SampleTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SampleTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -58,8 +56,6 @@
 			isa = PBXGroup;
 			children = (
 				798268FC1F1F269B0090613B /* Sample */,
-				798269111F1F269B0090613B /* SampleTests */,
-				7982691C1F1F269C0090613B /* SampleUITests */,
 				798268FB1F1F269B0090613B /* Products */,
 				C194C3163D03FAFD9E9E1123 /* Pods */,
 				5F52D1841BC317DA714C9235 /* Frameworks */,
@@ -85,22 +81,6 @@
 				798269091F1F269B0090613B /* Info.plist */,
 			);
 			path = Sample;
-			sourceTree = "<group>";
-		};
-		798269111F1F269B0090613B /* SampleTests */ = {
-			isa = PBXGroup;
-			children = (
-				798269141F1F269B0090613B /* Info.plist */,
-			);
-			path = SampleTests;
-			sourceTree = "<group>";
-		};
-		7982691C1F1F269C0090613B /* SampleUITests */ = {
-			isa = PBXGroup;
-			children = (
-				7982691F1F1F269C0090613B /* Info.plist */,
-			);
-			path = SampleUITests;
 			sourceTree = "<group>";
 		};
 		C194C3163D03FAFD9E9E1123 /* Pods */ = {
