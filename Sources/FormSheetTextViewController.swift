@@ -114,7 +114,7 @@ open class FormSheetTextViewController: UIViewController {
     
     static func getStoryboardsBundle() -> Bundle {
         let podBundle = Bundle(for: FormSheetTextViewController.self)
-        let bundleURL = podBundle.url(forResource: "Storyboards", withExtension: "bundle")
+        let bundleURL = podBundle.url(forResource: "FormSheetTextViewStoryboards", withExtension: "bundle")
         let bundle = Bundle(url: bundleURL!)!
         
         return bundle
