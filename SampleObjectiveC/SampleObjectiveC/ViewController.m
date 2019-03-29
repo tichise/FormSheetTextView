@@ -31,7 +31,7 @@
     [formSheetTextViewController setWithSendButtonText:@"Send"];
     [formSheetTextViewController setCompletionHandler:^(NSString *sendText) {
         
-        if ([sendText length] > 5) {
+        if ([sendText length] > 20) {
             UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:@"The number of characters exceeds the upper limit. Please enter within 20 characters." preferredStyle:UIAlertControllerStyleAlert];
             UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {}];
             [alertController addAction:cancelAction];
