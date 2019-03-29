@@ -25,31 +25,37 @@ FormSheetTextView is a FormSheet style UITextView.
 ```html
 import FormSheetTextView
 
-        let formSheetTextViewController = FormSheetTextViewController.instantiate()
-        formSheetTextViewController.setInitialText((self.baseTextView?.text)!)
-        formSheetTextViewController.setTitleText("Title")
-        formSheetTextViewController.setCancelButtonText("Cancel")
+        let initialText = self.baseTextView?.text
         
-        // formSheetTextViewController.setTitleSize(20) // default 15
-        // formSheetTextViewController.setButtonSize(20) // default 15
+        guard let formSheetTextViewController = FormSheetTextViewController.instantiate() else {
+            return
+        }
 
-        formSheetTextViewController.setIsPreview(true)
-        formSheetTextViewController.setPreviewPageTitle("Preview")
-        formSheetTextViewController.setSendButtonText("Send")
+        formSheetTextViewController.set(initialText: initialText)
+        formSheetTextViewController.set(titleText: "Title")
+        formSheetTextViewController.set(cancelButtonText: "Cancel")
+        formSheetTextViewController.set(isInitialPositionHead: false)
+        
+        // formSheetTextViewController.set(titleSize: 20) // default 15
+        // formSheetTextViewController.set(buttonSize: 20) // default 15
+
+        formSheetTextViewController.set(isPreview: true)
+        formSheetTextViewController.set(previewPageTitle: "Preview")
+        formSheetTextViewController.set(sendButtonText: "Send")
         formSheetTextViewController.completionHandler = { sendText in
             
-            if (sendText.characters.count > 20) {
-                let alertController:UIAlertController = UIAlertController(title:nil, message: "The number of characters exceeds the upper limit. Please enter within 20 characters.", preferredStyle: UIAlertControllerStyle.alert)
-                let cancelAction:UIAlertAction = UIAlertAction(title: "Close", style: UIAlertActionStyle.cancel, handler:{ (action:UIAlertAction!) -> Void in
+            if sendText.count > 20 {
+                let alertController:UIAlertController = UIAlertController(title:nil, message: "The number of characters exceeds the upper limit. Please enter within 20 characters.", preferredStyle: UIAlertController.Style.alert)
+                let cancelAction:UIAlertAction = UIAlertAction(title: "Close", style: UIAlertAction.Style.cancel, handler:{ (action:UIAlertAction!) -> Void in
                 })
                 alertController.addAction(cancelAction)
                 formSheetTextViewController.present(alertController, animated: true, completion: nil)
                 return
             }
             
-            if (sendText.characters.count == 0) {
-                let alertController:UIAlertController = UIAlertController(title:nil, message: "It is not input. Please enter.", preferredStyle: UIAlertControllerStyle.alert)
-                let cancelAction:UIAlertAction = UIAlertAction(title: "Close", style: UIAlertActionStyle.cancel, handler:{ (action:UIAlertAction!) -> Void in
+            if sendText.count == 0 {
+                let alertController:UIAlertController = UIAlertController(title:nil, message: "It is not input. Please enter.", preferredStyle: UIAlertController.Style.alert)
+                let cancelAction:UIAlertAction = UIAlertAction(title: "Close", style: UIAlertAction.Style.cancel, handler:{ (action:UIAlertAction!) -> Void in
                 })
                 alertController.addAction(cancelAction)
                 formSheetTextViewController.present(alertController, animated: true, completion: nil)
@@ -74,13 +80,13 @@ import FormSheetTextView
 @import FormSheetTextView;
 
 __weak FormSheetTextViewController *formSheetTextViewController = [FormSheetTextViewController instantiate];
-    [formSheetTextViewController setInitialText:@"initial text"];
-    [formSheetTextViewController setTitleText:@"Title"];
-    [formSheetTextViewController setCancelButtonText:@"Cancel"];
-    [formSheetTextViewController setSendButtonText:@"Send"];
+    [formSheetTextViewController setWithInitialText:@"initial text"];
+    [formSheetTextViewController setWithTitleText:@"Title"];
+    [formSheetTextViewController setWithCancelButtonText:@"Cancel"];
+    [formSheetTextViewController setWithSendButtonText:@"Send"];
     [formSheetTextViewController setCompletionHandler:^(NSString *sendText) {
         
-        if ([sendText length] > 5) {
+        if ([sendText length] > 20) {
             UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:@"The number of characters exceeds the upper limit. Please enter within 20 characters." preferredStyle:UIAlertControllerStyleAlert];
             UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {}];
             [alertController addAction:cancelAction];
@@ -98,7 +104,7 @@ __weak FormSheetTextViewController *formSheetTextViewController = [FormSheetText
             return;
         }
         
-        [self dismissViewControllerAnimated:true completion:nil];
+        [formSheetTextViewController dismissViewControllerAnimated:true completion:nil];
     }];
 
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:formSheetTextViewController];
