@@ -24,14 +24,16 @@ open class FormSheetTextViewController: UIViewController {
     @IBOutlet weak var cancelButton: UIBarButtonItem?
     @IBOutlet weak var sendButton: UIBarButtonItem?
     
-    @IBOutlet weak var bottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var bottomConstraint: NSLayoutConstraint?
     
     @objc open var completionHandler: ((_ sendText: String) -> Void)?
     
     
-    @objc public static func instantiate() -> FormSheetTextViewController {
+    @objc public static func instantiate() -> FormSheetTextViewController? {
         let storyboardsBundle = getStoryboardsBundle()
-        let formSheetTextViewController = UIStoryboard(name: "FormSheet", bundle: storyboardsBundle).instantiateInitialViewController() as! FormSheetTextViewController
+        guard let formSheetTextViewController = UIStoryboard(name: "FormSheet", bundle: storyboardsBundle).instantiateInitialViewController() as? FormSheetTextViewController else {
+            return nil
+        }
 
         return formSheetTextViewController
     }
@@ -135,22 +137,25 @@ open class FormSheetTextViewController: UIViewController {
         let keyboardHeight = keyboardRect.size.height
         
         // Form Sheet(UIModalPresentationFormSheet) 高さ
-        let formSheetHeight:CGFloat! = self.view.superview?.frame.size.height
-        
-        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.pad) {
+        guard let superview = self.view.superview else {
+            return
+        }
+
+        let formSheetHeight = superview.frame.size.height
+
+        if UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.pad {
             // iPadの場合
             if UIDevice.current.orientation.isLandscape {
                 let statusBarHeight = UIApplication.shared.statusBarFrame.size.height
                 
                 // キーボードの高さ - form sheetの下の余白の高さ
-                bottomConstraint.constant = keyboardHeight - ((windowHeight - formSheetHeight - statusBarHeight)) + 10
+                bottomConstraint?.constant = keyboardHeight - ((windowHeight - formSheetHeight - statusBarHeight)) + 10
             } else {
-                bottomConstraint.constant = keyboardHeight - ((windowHeight - formSheetHeight) / 2) + 10
+                bottomConstraint?.constant = keyboardHeight - ((windowHeight - formSheetHeight) / 2) + 10
             }
         } else {
-            bottomConstraint.constant = keyboardHeight + 10
+            bottomConstraint?.constant = keyboardHeight + 10
         }
-        
         
         let duration = CDouble(info?[UIResponder.keyboardAnimationDurationUserInfoKey] as? TimeInterval ?? TimeInterval())
         UIView.animate(withDuration: duration, animations: {() -> Void in
@@ -159,10 +164,12 @@ open class FormSheetTextViewController: UIViewController {
     }
     
     @objc func keyboardWillHide(_ notification: Notification) {
+        bottomConstraint?.constant = 10
+
         let info: [AnyHashable: Any]? = notification.userInfo
-        bottomConstraint.constant = 10
-        
+
         let duration = CDouble(info?[UIResponder.keyboardAnimationDurationUserInfoKey] as? TimeInterval ?? TimeInterval())
+
         UIView.animate(withDuration: duration, animations: {() -> Void in
             self.view.layoutIfNeeded()
         })
