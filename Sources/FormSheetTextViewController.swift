@@ -101,7 +101,7 @@ open class FormSheetTextViewController: UIViewController {
         self.buttonSize = buttonSize
     }
     
-    @objc private func cancel(sender:UIBarButtonItem) {
+    @objc private func cancel(sender: UIBarButtonItem) {
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
