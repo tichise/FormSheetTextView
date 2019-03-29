@@ -25,10 +25,10 @@
 
 -(IBAction)click:(id)sender {
     __weak FormSheetTextViewController *formSheetTextViewController = [FormSheetTextViewController instantiate];
-    [formSheetTextViewController setInitialText:@"initial text"];
-    [formSheetTextViewController setTitleText:@"Title"];
-    [formSheetTextViewController setCancelButtonText:@"Cancel"];
-    [formSheetTextViewController setSendButtonText:@"Send"];
+    [formSheetTextViewController setWithInitialText:@"initial text"];
+    [formSheetTextViewController setWithTitleText:@"Title"];
+    [formSheetTextViewController setWithCancelButtonText:@"Cancel"];
+    [formSheetTextViewController setWithSendButtonText:@"Send"];
     [formSheetTextViewController setCompletionHandler:^(NSString *sendText) {
         
         if ([sendText length] > 5) {
@@ -49,7 +49,7 @@
             return;
         }
         
-        [self dismissViewControllerAnimated:true completion:nil];
+        [formSheetTextViewController dismissViewControllerAnimated:true completion:nil];
     }];
 
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:formSheetTextViewController];
