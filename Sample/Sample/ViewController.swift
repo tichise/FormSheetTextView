@@ -66,7 +66,7 @@ class ViewController: UIViewController {
             // success
             self.baseTextView?.text = sendText
             
-            self.dismiss(animated: true, completion: nil)
+            formSheetTextViewController.dismiss(animated: true, completion: nil)
         };
         
         let navigationController = UINavigationController(rootViewController: formSheetTextViewController)
