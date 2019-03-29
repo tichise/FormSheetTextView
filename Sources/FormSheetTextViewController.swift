@@ -71,32 +71,32 @@ open class FormSheetTextViewController: UIViewController {
         composeTextView?.becomeFirstResponder()
     }
     
-    @objc public func setInitialText(_ text:String) {
-        self.initialText = text
+    @objc public func set(initialText: String) {
+        self.initialText = initialText
     }
     
-    @objc public func setTitleText(_ text:String) {
-        self.titleText = text
+    @objc public func set(titleText: String) {
+        self.titleText = titleText
     }
     
-    @objc public func setPreviewPageTitle(_ text:String) {
-        self.previewPageTitle = text
+    @objc public func set(previewPageTitle: String) {
+        self.previewPageTitle = previewPageTitle
     }
     
-    @objc public func setCancelButtonText(_ text:String) {
-        self.cancelButonText = text
+    @objc public func set(cancelButtonText: String) {
+        self.cancelButonText = cancelButtonText
     }
     
-    @objc public func setSendButtonText(_ text:String) {
-        self.sendButtonText = text
+    @objc public func set(sendButtonText: String) {
+        self.sendButtonText = sendButtonText
     }
     
-    @objc public func setTitleSize(_ size:CGFloat) {
-        self.titleSize = size
+    @objc public func set(titleSize: CGFloat) {
+        self.titleSize = titleSize
     }
     
-    @objc public func setButtonSize(_ size:CGFloat) {
-        self.buttonSize = size
+    @objc public func set(buttonSize: CGFloat) {
+        self.buttonSize = buttonSize
     }
     
     @objc private func cancel(sender:UIBarButtonItem) {
@@ -208,7 +208,7 @@ open class FormSheetTextViewController: UIViewController {
         }
     }
     
-    func setUpComposeTextView(_ defaultString: String) {
+    func setUpComposeTextView(defaultString: String) {
 
         guard let composeTextView = composeTextView else {
             return
@@ -236,11 +236,11 @@ open class FormSheetTextViewController: UIViewController {
         composeTextView.inputAccessoryView = toolbar
     }
     
-    @objc public func setIsPreview (_ isPreview:Bool) {
+    @objc public func set(isPreview: Bool) {
         self.isPreview = isPreview
     }
     
-    @objc public func setIsInitialPositionHead(_ isInitialPositionHead:Bool) {
+    @objc public func set(isInitialPositionHead: Bool) {
         self.isInitialPositionHead = isInitialPositionHead
     }
 }
