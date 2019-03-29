@@ -5,33 +5,35 @@ import UIKit
 
 open class FormSheetTextViewController: UIViewController {
     
-    fileprivate let seguePushPreview = "SeguePushPreview"
+    let seguePushPreview = "SeguePushPreview"
     
-    fileprivate var isPreview:Bool = false
-    fileprivate var isInitialPositionHead:Bool = false
+    var isPreview: Bool = false
+    var isInitialPositionHead: Bool = false
     
-    fileprivate var initialText:String?
-    fileprivate var previewPageTitle:String = "Preview"
-    fileprivate var cancelButonText:String = "Cancel"
-    fileprivate var sendButtonText:String = "Send"
-    fileprivate var titleText:String?
+    var initialText: String?
+    var previewPageTitle: String = "Preview"
+    var cancelButonText: String = "Cancel"
+    var sendButtonText: String = "Send"
+    var titleText: String?
 
-    fileprivate var titleSize:CGFloat?
-    fileprivate var buttonSize:CGFloat?
+    var titleSize: CGFloat?
+    var buttonSize: CGFloat?
 
-    @IBOutlet weak var composeTextView:UITextView?
+    @IBOutlet weak var composeTextView: UITextView?
     
-    @IBOutlet weak var cancelButton:UIBarButtonItem?
-    @IBOutlet weak var sendButton:UIBarButtonItem?
+    @IBOutlet weak var cancelButton: UIBarButtonItem?
+    @IBOutlet weak var sendButton: UIBarButtonItem?
     
-    @IBOutlet weak var bottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var bottomConstraint: NSLayoutConstraint?
     
     @objc open var completionHandler: ((_ sendText: String) -> Void)?
     
     
-    @objc public static func instantiate() -> FormSheetTextViewController {
+    @objc public static func instantiate() -> FormSheetTextViewController? {
         let storyboardsBundle = getStoryboardsBundle()
-        let formSheetTextViewController = UIStoryboard(name: "FormSheet", bundle: storyboardsBundle).instantiateInitialViewController() as! FormSheetTextViewController
+        guard let formSheetTextViewController = UIStoryboard(name: "FormSheet", bundle: storyboardsBundle).instantiateInitialViewController() as? FormSheetTextViewController else {
+            return nil
+        }
 
         return formSheetTextViewController
     }
@@ -41,17 +43,17 @@ open class FormSheetTextViewController: UIViewController {
         
         setUpCancelButton()
         setUpSendButton()
-        
-        
+
         self.navigationItem.title = titleText
         
-        if (titleSize != nil) {
+        if let titleSize = self.titleSize {
             self.navigationController?.navigationBar.titleTextAttributes
-                = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: titleSize!)]
+                = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: titleSize)]
         }
     
-        
-        setUpComposeTextView(initialText!)
+        if let initialText = self.initialText {
+            setUpComposeTextView(initialText: initialText)
+        }
     }
     
     override open func viewDidAppear(_ animated: Bool) {
@@ -62,172 +64,76 @@ open class FormSheetTextViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillChangeFrame), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
         
-        if (isInitialPositionHead) {
+        if isInitialPositionHead {
             // Cursor initial position of explanatory area set as head
             composeTextView?.selectedTextRange = composeTextView?.textRange(from: (composeTextView?.beginningOfDocument)!, to: (composeTextView?.beginningOfDocument)!)
         }
         
         composeTextView?.becomeFirstResponder()
     }
-    
-    @objc public func setInitialText(_ text:String) {
-        self.initialText = text
-    }
-    
-    @objc public func setTitleText(_ text:String) {
-        self.titleText = text
-    }
-    
-    @objc public func setPreviewPageTitle(_ text:String) {
-        self.previewPageTitle = text
-    }
-    
-    @objc public func setCancelButtonText(_ text:String) {
-        self.cancelButonText = text
-    }
-    
-    @objc public func setSendButtonText(_ text:String) {
-        self.sendButtonText = text
-    }
-    
-    @objc public func setTitleSize(_ size:CGFloat) {
-        self.titleSize = size
-    }
-    
-    @objc public func setButtonSize(_ size:CGFloat) {
-        self.buttonSize = size
-    }
-    
-    @objc private func cancel(sender:UIBarButtonItem) {
-        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
-        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
 
-        self.dismiss(animated: true, completion:nil)
+    @objc public func set(initialText: String?) {
+        self.initialText = initialText
     }
     
-    @objc private func send(sender:UIBarButtonItem) {
-        if completionHandler != nil {
-            completionHandler!((composeTextView?.text)!)
-        }
+    @objc public func set(titleText: String) {
+        self.titleText = titleText
     }
     
-    static func getStoryboardsBundle() -> Bundle {
-        let podBundle = Bundle(for: FormSheetTextViewController.self)
-        let bundleURL = podBundle.url(forResource: "FormSheetTextViewStoryboards", withExtension: "bundle")
-        let bundle = Bundle(url: bundleURL!)!
-        
-        return bundle
+    @objc public func set(previewPageTitle: String) {
+        self.previewPageTitle = previewPageTitle
     }
     
-    @objc func UIKeyboardWillShow(notification: NSNotification) {
-        keyboardWillChangeFrame(notification: notification)
+    @objc public func set(cancelButtonText: String) {
+        self.cancelButonText = cancelButtonText
     }
     
-    @objc func keyboardWillChangeFrame(notification: NSNotification) {
-        let info: [AnyHashable: Any]? = notification.userInfo
-        
-        let windowHeight = UIScreen.main.bounds.size.height
-        
-        // キーボードの大きさを取得
-        let keyboardRect = (info?[UIResponder.keyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
-        let keyboardHeight = keyboardRect.size.height
-        
-        // Form Sheet(UIModalPresentationFormSheet) 高さ
-        let formSheetHeight:CGFloat! = self.view.superview?.frame.size.height
-        
-        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.pad) {
-            // iPadの場合
-            if UIDevice.current.orientation.isLandscape {
-                let statusBarHeight = UIApplication.shared.statusBarFrame.size.height
-                
-                // キーボードの高さ - form sheetの下の余白の高さ
-                bottomConstraint.constant = keyboardHeight - ((windowHeight - formSheetHeight - statusBarHeight)) + 10
-            } else {
-                bottomConstraint.constant = keyboardHeight - ((windowHeight - formSheetHeight) / 2) + 10
-            }
-        } else {
-            bottomConstraint.constant = keyboardHeight + 10
-        }
-        
-        
-        let duration = CDouble(info?[UIResponder.keyboardAnimationDurationUserInfoKey] as? TimeInterval ?? TimeInterval())
-        UIView.animate(withDuration: duration, animations: {() -> Void in
-            self.view.layoutIfNeeded()
-        })
+    @objc public func set(sendButtonText: String) {
+        self.sendButtonText = sendButtonText
     }
     
-    @objc func keyboardWillHide(_ notification: Notification) {
-        let info: [AnyHashable: Any]? = notification.userInfo
-        bottomConstraint.constant = 10
-        
-        let duration = CDouble(info?[UIResponder.keyboardAnimationDurationUserInfoKey] as? TimeInterval ?? TimeInterval())
-        UIView.animate(withDuration: duration, animations: {() -> Void in
-            self.view.layoutIfNeeded()
-        })
+    @objc public func set(titleSize: CGFloat) {
+        self.titleSize = titleSize
     }
     
-    func setUpCancelButton() {
-        let leftButton = UIBarButtonItem(title: cancelButonText, style: UIBarButtonItem.Style.plain, target: self, action:#selector(FormSheetTextViewController.cancel(sender:)))
-        
-        if (buttonSize != nil) {
-            leftButton.setTitleTextAttributes([NSAttributedString.Key.font: UIFont.systemFont(ofSize: buttonSize!)], for: UIControl.State.normal)
-        }
-        
-        self.navigationItem.leftBarButtonItem = leftButton
-    }
-
-    
-    func setUpSendButton() {
-        let rightButton = UIBarButtonItem(title: sendButtonText, style: UIBarButtonItem.Style.plain, target: self, action: #selector(FormSheetTextViewController.send(sender:)))
-        
-        if (buttonSize != nil) {
-            rightButton.setTitleTextAttributes([NSAttributedString.Key.font: UIFont.systemFont(ofSize: buttonSize!)], for: UIControl.State.normal)
-        }
-        
-        self.navigationItem.rightBarButtonItem = rightButton
+    @objc public func set(buttonSize: CGFloat) {
+        self.buttonSize = buttonSize
     }
     
-    @objc func preview() {
-        performSegue(withIdentifier: seguePushPreview, sender: nil)
-    }
-    
-    override open func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if (segue.identifier == seguePushPreview) {
-            let previewViewController: PreviewViewController? = segue.destination as? PreviewViewController
-            previewViewController?.previewPageTitle = previewPageTitle
-            previewViewController?.setHtml((composeTextView?.text)!)
-        }
-    }
-    
-    func setUpComposeTextView(_ defaultString: String) {
-        let bodyFontDescriptor = UIFontDescriptor.preferredFontDescriptor(withTextStyle: UIFont.TextStyle.body)
-        
-        let bodyFont = UIFont(descriptor: bodyFontDescriptor, size: 0.0)
-        
-        let paragrahStyle = NSMutableParagraphStyle()
-        paragrahStyle.lineSpacing = 10.0
-        let attributedText = NSMutableAttributedString(string: defaultString)
-        attributedText.addAttribute(NSAttributedString.Key.paragraphStyle, value: paragrahStyle, range: NSRange(location: 0, length: attributedText.length))
-        attributedText.addAttribute(NSAttributedString.Key.font, value: bodyFont, range: NSRange(location: 0, length: attributedText.length))
-        composeTextView?.attributedText = attributedText
-        
-        let toolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: 45))
-        toolbar.barStyle = .default
-        toolbar.backgroundColor = UIColor.white
-        
-        if (isPreview) {
-            toolbar.items = [UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil), UIBarButtonItem(title: self.previewPageTitle, style: .done, target: self, action: #selector(self.preview))]
-        }
-        toolbar.sizeToFit()
-        composeTextView?.inputAccessoryView = toolbar
-    }
-    
-    @objc public func setIsPreview (_ isPreview:Bool) {
+    @objc public func set(isPreview: Bool) {
         self.isPreview = isPreview
     }
     
-    @objc public func setIsInitialPositionHead(_ isInitialPositionHead:Bool) {
+    @objc public func set(isInitialPositionHead: Bool) {
         self.isInitialPositionHead = isInitialPositionHead
+    }
+
+    private func setUpComposeTextView(initialText: String?) {
+
+        guard let composeTextView = composeTextView else {
+            return
+        }
+
+        let bodyFontDescriptor = UIFontDescriptor.preferredFontDescriptor(withTextStyle: UIFont.TextStyle.body)
+
+        let bodyFont = UIFont(descriptor: bodyFontDescriptor, size: 0.0)
+
+        let paragrahStyle = NSMutableParagraphStyle()
+        paragrahStyle.lineSpacing = 10.0
+        let attributedText = NSMutableAttributedString(string: initialText ?? "")
+        attributedText.addAttribute(NSAttributedString.Key.paragraphStyle, value: paragrahStyle, range: NSRange(location: 0, length: attributedText.length))
+        attributedText.addAttribute(NSAttributedString.Key.font, value: bodyFont, range: NSRange(location: 0, length: attributedText.length))
+        composeTextView.attributedText = attributedText
+
+        let toolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: 45))
+        toolbar.barStyle = .default
+        toolbar.backgroundColor = UIColor.white
+
+        if isPreview {
+            toolbar.items = [UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil), UIBarButtonItem(title: self.previewPageTitle, style: .done, target: self, action: #selector(self.preview))]
+        }
+
+        toolbar.sizeToFit()
+        composeTextView.inputAccessoryView = toolbar
     }
 }

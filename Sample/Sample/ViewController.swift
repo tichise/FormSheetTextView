@@ -24,19 +24,24 @@ class ViewController: UIViewController {
 
     
     @IBAction func click(sender:UIBarButtonItem) {
-        
-        let formSheetTextViewController = FormSheetTextViewController.instantiate()
-        formSheetTextViewController.setInitialText((self.baseTextView?.text)!)
-        formSheetTextViewController.setTitleText("Title")
-        formSheetTextViewController.setCancelButtonText("Cancel")
-        formSheetTextViewController.setIsInitialPositionHead(false)
-        
-        // formSheetTextViewController.setTitleSize(20) // default 15
-        // formSheetTextViewController.setButtonSize(20) // default 15
 
-        formSheetTextViewController.setIsPreview(true)
-        formSheetTextViewController.setPreviewPageTitle("Preview")
-        formSheetTextViewController.setSendButtonText("Send")
+        let initialText = self.baseTextView?.text
+        
+        guard let formSheetTextViewController = FormSheetTextViewController.instantiate() else {
+            return
+        }
+
+        formSheetTextViewController.set(initialText: initialText)
+        formSheetTextViewController.set(titleText: "Title")
+        formSheetTextViewController.set(cancelButtonText: "Cancel")
+        formSheetTextViewController.set(isInitialPositionHead: false)
+        
+        // formSheetTextViewController.set(titleSize: 20) // default 15
+        // formSheetTextViewController.set(buttonSize: 20) // default 15
+
+        formSheetTextViewController.set(isPreview: true)
+        formSheetTextViewController.set(previewPageTitle: "Preview")
+        formSheetTextViewController.set(sendButtonText: "Send")
         formSheetTextViewController.completionHandler = { sendText in
             
             if sendText.count > 20 {
@@ -61,7 +66,7 @@ class ViewController: UIViewController {
             // success
             self.baseTextView?.text = sendText
             
-            self.dismiss(animated: true, completion: nil)
+            formSheetTextViewController.dismiss(animated: true, completion: nil)
         };
         
         let navigationController = UINavigationController(rootViewController: formSheetTextViewController)

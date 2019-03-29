@@ -25,13 +25,13 @@
 
 -(IBAction)click:(id)sender {
     __weak FormSheetTextViewController *formSheetTextViewController = [FormSheetTextViewController instantiate];
-    [formSheetTextViewController setInitialText:@"initial text"];
-    [formSheetTextViewController setTitleText:@"Title"];
-    [formSheetTextViewController setCancelButtonText:@"Cancel"];
-    [formSheetTextViewController setSendButtonText:@"Send"];
+    [formSheetTextViewController setWithInitialText:@"initial text"];
+    [formSheetTextViewController setWithTitleText:@"Title"];
+    [formSheetTextViewController setWithCancelButtonText:@"Cancel"];
+    [formSheetTextViewController setWithSendButtonText:@"Send"];
     [formSheetTextViewController setCompletionHandler:^(NSString *sendText) {
         
-        if ([sendText length] > 5) {
+        if ([sendText length] > 20) {
             UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:@"The number of characters exceeds the upper limit. Please enter within 20 characters." preferredStyle:UIAlertControllerStyleAlert];
             UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {}];
             [alertController addAction:cancelAction];
@@ -49,7 +49,7 @@
             return;
         }
         
-        [self dismissViewControllerAnimated:true completion:nil];
+        [formSheetTextViewController dismissViewControllerAnimated:true completion:nil];
     }];
 
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:formSheetTextViewController];
