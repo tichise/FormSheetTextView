@@ -229,7 +229,7 @@ open class FormSheetTextViewController: UIViewController {
         toolbar.barStyle = .default
         toolbar.backgroundColor = UIColor.white
         
-        if (isPreview) {
+        if isPreview {
             toolbar.items = [UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil), UIBarButtonItem(title: self.previewPageTitle, style: .done, target: self, action: #selector(self.preview))]
         }
         toolbar.sizeToFit()
