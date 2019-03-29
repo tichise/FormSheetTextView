@@ -10,7 +10,7 @@ extension FormSheetTextViewController {
     }
 
     @objc func keyboardWillChangeFrame(notification: NSNotification) {
-        let info: [AnyHashable: Any]? = notification.userInfo
+        let info = notification.userInfo
 
         let windowHeight = UIScreen.main.bounds.size.height
 
