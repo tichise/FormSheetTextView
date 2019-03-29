@@ -65,7 +65,7 @@ open class FormSheetTextViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillChangeFrame), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
         
-        if (isInitialPositionHead) {
+        if isInitialPositionHead {
             // Cursor initial position of explanatory area set as head
             composeTextView?.selectedTextRange = composeTextView?.textRange(from: (composeTextView?.beginningOfDocument)!, to: (composeTextView?.beginningOfDocument)!)
         }
