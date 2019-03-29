@@ -43,8 +43,7 @@ open class FormSheetTextViewController: UIViewController {
         
         setUpCancelButton()
         setUpSendButton()
-        
-        
+
         self.navigationItem.title = titleText
         
         if let titleSize = self.titleSize {
