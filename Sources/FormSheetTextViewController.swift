@@ -45,13 +45,14 @@ open class FormSheetTextViewController: UIViewController {
         
         self.navigationItem.title = titleText
         
-        if (titleSize != nil) {
+        if let titleSize = self.titleSize {
             self.navigationController?.navigationBar.titleTextAttributes
-                = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: titleSize!)]
+                = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: titleSize)]
         }
     
-        
-        setUpComposeTextView(initialText!)
+        if let initialText = self.initialText {
+            setUpComposeTextView(initialText)
+        }
     }
     
     override open func viewDidAppear(_ animated: Bool) {
@@ -106,9 +107,9 @@ open class FormSheetTextViewController: UIViewController {
         self.dismiss(animated: true, completion:nil)
     }
     
-    @objc private func send(sender:UIBarButtonItem) {
-        if completionHandler != nil {
-            completionHandler!((composeTextView?.text)!)
+    @objc private func send(sender: UIBarButtonItem) {
+        if let completionHandler = completionHandler, let composeText = composeTextView?.text {
+            completionHandler(composeText)
         }
     }
     
@@ -170,8 +171,8 @@ open class FormSheetTextViewController: UIViewController {
     func setUpCancelButton() {
         let leftButton = UIBarButtonItem(title: cancelButonText, style: UIBarButtonItem.Style.plain, target: self, action:#selector(FormSheetTextViewController.cancel(sender:)))
         
-        if (buttonSize != nil) {
-            leftButton.setTitleTextAttributes([NSAttributedString.Key.font: UIFont.systemFont(ofSize: buttonSize!)], for: UIControl.State.normal)
+        if let buttonSize = self.buttonSize {
+            leftButton.setTitleTextAttributes([NSAttributedString.Key.font: UIFont.systemFont(ofSize: buttonSize)], for: UIControl.State.normal)
         }
         
         self.navigationItem.leftBarButtonItem = leftButton
@@ -181,8 +182,8 @@ open class FormSheetTextViewController: UIViewController {
     func setUpSendButton() {
         let rightButton = UIBarButtonItem(title: sendButtonText, style: UIBarButtonItem.Style.plain, target: self, action: #selector(FormSheetTextViewController.send(sender:)))
         
-        if (buttonSize != nil) {
-            rightButton.setTitleTextAttributes([NSAttributedString.Key.font: UIFont.systemFont(ofSize: buttonSize!)], for: UIControl.State.normal)
+        if let buttonSize = self.buttonSize {
+            rightButton.setTitleTextAttributes([NSAttributedString.Key.font: UIFont.systemFont(ofSize: buttonSize)], for: UIControl.State.normal)
         }
         
         self.navigationItem.rightBarButtonItem = rightButton
@@ -193,14 +194,26 @@ open class FormSheetTextViewController: UIViewController {
     }
     
     override open func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if (segue.identifier == seguePushPreview) {
-            let previewViewController: PreviewViewController? = segue.destination as? PreviewViewController
-            previewViewController?.previewPageTitle = previewPageTitle
-            previewViewController?.setHtml((composeTextView?.text)!)
+        if segue.identifier == seguePushPreview {
+
+            guard let previewViewController = segue.destination as? PreviewViewController else {
+                return
+            }
+
+            previewViewController.previewPageTitle = previewPageTitle
+
+            if let composeText = composeTextView?.text {
+                previewViewController.setHtml(composeText)
+            }
         }
     }
     
     func setUpComposeTextView(_ defaultString: String) {
+
+        guard let composeTextView = composeTextView else {
+            return
+        }
+
         let bodyFontDescriptor = UIFontDescriptor.preferredFontDescriptor(withTextStyle: UIFont.TextStyle.body)
         
         let bodyFont = UIFont(descriptor: bodyFontDescriptor, size: 0.0)
@@ -210,7 +223,7 @@ open class FormSheetTextViewController: UIViewController {
         let attributedText = NSMutableAttributedString(string: defaultString)
         attributedText.addAttribute(NSAttributedString.Key.paragraphStyle, value: paragrahStyle, range: NSRange(location: 0, length: attributedText.length))
         attributedText.addAttribute(NSAttributedString.Key.font, value: bodyFont, range: NSRange(location: 0, length: attributedText.length))
-        composeTextView?.attributedText = attributedText
+        composeTextView.attributedText = attributedText
         
         let toolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: 45))
         toolbar.barStyle = .default
@@ -220,7 +233,7 @@ open class FormSheetTextViewController: UIViewController {
             toolbar.items = [UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil), UIBarButtonItem(title: self.previewPageTitle, style: .done, target: self, action: #selector(self.preview))]
         }
         toolbar.sizeToFit()
-        composeTextView?.inputAccessoryView = toolbar
+        composeTextView.inputAccessoryView = toolbar
     }
     
     @objc public func setIsPreview (_ isPreview:Bool) {
