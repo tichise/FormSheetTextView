@@ -53,7 +53,7 @@ open class FormSheetTextViewController: UIViewController {
         }
     
         if let initialText = self.initialText {
-            setUpComposeTextView(initialText)
+            setUpComposeTextView(initialText: initialText)
         }
     }
     
@@ -215,7 +215,7 @@ open class FormSheetTextViewController: UIViewController {
         }
     }
     
-    func setUpComposeTextView(defaultString: String) {
+    func setUpComposeTextView(initialText: String) {
 
         guard let composeTextView = composeTextView else {
             return
@@ -227,7 +227,7 @@ open class FormSheetTextViewController: UIViewController {
         
         let paragrahStyle = NSMutableParagraphStyle()
         paragrahStyle.lineSpacing = 10.0
-        let attributedText = NSMutableAttributedString(string: defaultString)
+        let attributedText = NSMutableAttributedString(string: initialText)
         attributedText.addAttribute(NSAttributedString.Key.paragraphStyle, value: paragrahStyle, range: NSRange(location: 0, length: attributedText.length))
         attributedText.addAttribute(NSAttributedString.Key.font, value: bodyFont, range: NSRange(location: 0, length: attributedText.length))
         composeTextView.attributedText = attributedText
