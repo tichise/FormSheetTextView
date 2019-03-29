@@ -5,10 +5,10 @@ import UIKit
 
 open class PreviewViewController: UIViewController {
 
-    @IBOutlet weak var webView:UIWebView?
+    @IBOutlet weak var webView: UIWebView?
 
-    fileprivate var html:String?
-    open var previewPageTitle:String?
+    fileprivate var html: String?
+    open var previewPageTitle: String?
     
     override open func viewDidLoad() {
         super.viewDidLoad()
