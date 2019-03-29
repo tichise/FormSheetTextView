@@ -7,22 +7,22 @@ open class FormSheetTextViewController: UIViewController {
     
     fileprivate let seguePushPreview = "SeguePushPreview"
     
-    fileprivate var isPreview:Bool = false
-    fileprivate var isInitialPositionHead:Bool = false
+    fileprivate var isPreview: Bool = false
+    fileprivate var isInitialPositionHead: Bool = false
     
-    fileprivate var initialText:String?
-    fileprivate var previewPageTitle:String = "Preview"
-    fileprivate var cancelButonText:String = "Cancel"
-    fileprivate var sendButtonText:String = "Send"
-    fileprivate var titleText:String?
+    fileprivate var initialText: String?
+    fileprivate var previewPageTitle: String = "Preview"
+    fileprivate var cancelButonText: String = "Cancel"
+    fileprivate var sendButtonText: String = "Send"
+    fileprivate var titleText: String?
 
-    fileprivate var titleSize:CGFloat?
-    fileprivate var buttonSize:CGFloat?
+    fileprivate var titleSize: CGFloat?
+    fileprivate var buttonSize: CGFloat?
 
-    @IBOutlet weak var composeTextView:UITextView?
+    @IBOutlet weak var composeTextView: UITextView?
     
-    @IBOutlet weak var cancelButton:UIBarButtonItem?
-    @IBOutlet weak var sendButton:UIBarButtonItem?
+    @IBOutlet weak var cancelButton: UIBarButtonItem?
+    @IBOutlet weak var sendButton: UIBarButtonItem?
     
     @IBOutlet weak var bottomConstraint: NSLayoutConstraint!
     
