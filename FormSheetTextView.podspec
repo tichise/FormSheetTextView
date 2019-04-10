@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name = 'FormSheetTextView'
-  s.version = '1.4.1'
+  s.version = '1.4.2'
   s.license = 'MIT'
   s.summary = 'FormSheetTextView is a FormSheet style UITextView.'
   s.homepage = 'https://github.com/tichise/FormSheetTextView'
