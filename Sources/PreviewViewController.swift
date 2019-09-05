@@ -28,7 +28,7 @@ open class PreviewViewController: UIViewController {
         }
     }
 
-    open func setHtml(_ html:String) {
+    open func set(html:String) {
         self.html = html
     }
 }

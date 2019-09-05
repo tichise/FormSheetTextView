@@ -63,7 +63,7 @@ extension FormSheetTextViewController {
             previewViewController.previewPageTitle = previewPageTitle
 
             if let composeText = composeTextView?.text {
-                previewViewController.setHtml(composeText)
+                previewViewController.set(html: composeText)
             }
         }
     }
