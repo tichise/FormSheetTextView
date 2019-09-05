@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina4_0" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <deployment version="4352" identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -42,49 +42,42 @@
                     <connections>
                         <outlet property="bottomConstraint" destination="l3A-pd-nI9" id="EAr-ic-FYV"/>
                         <outlet property="composeTextView" destination="S28-ym-so4" id="s5t-0B-d0g"/>
-                        <segue destination="A39-J9-OzW" kind="push" identifier="SeguePushPreview" id="71E-7o-9W4"/>
+                        <segue destination="bJG-ep-vI2" kind="push" identifier="SeguePushPreview" id="hKc-r6-d9H"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="173" y="-977"/>
+            <point key="canvasLocation" x="250.72463768115944" y="-654.24107142857144"/>
         </scene>
-        <!--プレビュー-->
-        <scene sceneID="dev-pu-iHR">
+        <!--Preview View Controller-->
+        <scene sceneID="1Ig-y7-m1E">
             <objects>
-                <viewController storyboardIdentifier="PreviewController" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="A39-J9-OzW" customClass="PreviewViewController" customModule="FormSheetTextView" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" restorationIdentifier="PreviewController" id="fpO-fJ-GHy">
+                <viewController storyboardIdentifier="PreviewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="bJG-ep-vI2" customClass="PreviewViewController" customModule="FormSheetTextView" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="GJI-Dt-1bg">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hne-hs-Iat">
-                                <rect key="frame" x="0.0" y="20" width="320" height="548"/>
+                            <wkWebView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0a2-D1-IIB">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <connections>
-                                    <outlet property="delegate" destination="A39-J9-OzW" id="hrV-km-py1"/>
-                                </connections>
-                            </webView>
+                                <wkWebViewConfiguration key="configuration">
+                                    <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
+                                    <wkPreferences key="preferences"/>
+                                </wkWebViewConfiguration>
+                            </wkWebView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="nKF-OX-bc4" firstAttribute="bottom" secondItem="hne-hs-Iat" secondAttribute="bottom" id="0ZD-rG-Eu9"/>
-                            <constraint firstItem="hne-hs-Iat" firstAttribute="top" secondItem="nKF-OX-bc4" secondAttribute="top" id="J5I-IE-Wed"/>
-                            <constraint firstItem="hne-hs-Iat" firstAttribute="leading" secondItem="nKF-OX-bc4" secondAttribute="leading" id="NbS-13-wGa"/>
-                            <constraint firstItem="nKF-OX-bc4" firstAttribute="trailing" secondItem="hne-hs-Iat" secondAttribute="trailing" id="YYT-MJ-vKi"/>
-                        </constraints>
-                        <viewLayoutGuide key="safeArea" id="nKF-OX-bc4"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="Qur-X1-tD6"/>
                     </view>
-                    <navigationItem key="navigationItem" title="プレビュー" id="3VS-Oa-6ju">
-                        <barButtonItem key="backBarButtonItem" title="戻る" id="gzE-YF-3f9"/>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" id="Jun-3f-l1D"/>
                     <connections>
-                        <outlet property="view" destination="fpO-fJ-GHy" id="i5L-9B-0M0"/>
-                        <outlet property="webView" destination="hne-hs-Iat" id="K4E-YR-dl3"/>
+                        <outlet property="webView" destination="0a2-D1-IIB" id="eVL-zx-wle"/>
                     </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="mGz-8b-OCQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="b0h-ZL-Esj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="576" y="-977"/>
+            <point key="canvasLocation" x="990" y="-655.9859154929577"/>
         </scene>
     </scenes>
 </document>
