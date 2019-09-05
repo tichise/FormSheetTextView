@@ -2,10 +2,11 @@
 //  PreviewViewController
 //
 import UIKit
+import WebKit
 
 open class PreviewViewController: UIViewController {
 
-    @IBOutlet weak var webView: UIWebView?
+    @IBOutlet weak var webView: WKWebView!
 
     fileprivate var html: String?
     open var previewPageTitle: String?
@@ -14,10 +15,6 @@ open class PreviewViewController: UIViewController {
         super.viewDidLoad()
         
         self.title = previewPageTitle
-
-        guard let webView = webView else {
-            return
-        }
 
         webView.scrollView.decelerationRate = UIScrollView.DecelerationRate.normal
 
@@ -28,7 +25,7 @@ open class PreviewViewController: UIViewController {
         }
     }
 
-    open func setHtml(_ html:String) {
+    open func set(html:String) {
         self.html = html
     }
 }
