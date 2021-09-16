@@ -25,7 +25,7 @@ extension FormSheetTextViewController {
 
         let formSheetHeight = superview.frame.size.height
 
-        if UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.pad {
+        if UIDevice.current.userInterfaceIdiom == UIUserInterfaceIdiom.pad {
             // iPadの場合
             if UIDevice.current.orientation.isLandscape {
                 let statusBarHeight = UIApplication.shared.statusBarFrame.size.height
