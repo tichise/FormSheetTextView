@@ -9,7 +9,7 @@ Pod::Spec.new do |s|
   s.source = { :git => 'https://github.com/tichise/FormSheetTextView.git', :tag => s.version }
 
   s.ios.deployment_target = '13.0'
-
+  s.swift_versions = '5.0'
   s.source_files = 'Sources/*.swift'
   s.requires_arc = true
 
