@@ -19,11 +19,16 @@ extension FormSheetTextViewController {
         }
     }
 
-    static func getStoryboardsBundle() -> Bundle {
+    static func getStoryboardsBundle() -> Bundle? {
         let podBundle = Bundle(for: FormSheetTextViewController.self)
+            
+    #if SWIFT_PACKAGE
+        let bundleURL = podBundle.url(forResource: "FormSheetTextView_FormSheetTextView", withExtension: "bundle")
+    #else
         let bundleURL = podBundle.url(forResource: "FormSheetTextViewStoryboards", withExtension: "bundle")
+    #endif
         let bundle = Bundle(url: bundleURL!)!
-
+            
         return bundle
     }
 
